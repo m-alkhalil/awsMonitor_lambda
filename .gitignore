@@ -1,3 +1,14 @@
+#aws
+.aws
+*DS_Store*
+#terraform
+.terraform.lock.hcl
+.terraform.tfstate.lock.info
+.terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
