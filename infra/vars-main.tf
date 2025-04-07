@@ -4,6 +4,7 @@ variable "lockingS3-region" {
 
 variable "s3-bucket-locking-key" {
   description = "Terraform locking file in teh s3 bucket"
+  default = "awsMonitor-infra-s3-backend"
 }
 
 variable "aws-tf-profile" {

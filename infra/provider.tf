@@ -6,13 +6,13 @@ terraform {
     }
   }
  
-  # backend "s3" {
-  #   bucket = module.s3.s3-locking-id
-  #   key = var.s3-bucket-locking-key
-  #   region = var.lockingS3-region
-  #   encrypt = true
-  #   use_lockfile = true
-  # }
+  backend "s3" {
+    bucket = "awsMonitor-infra-s3-backend"
+    key = var.s3-bucket-locking-key
+    region = var.lockingS3-region
+    encrypt = true
+    use_lockfile = true
+  }
     
 }
 provider "aws" {
