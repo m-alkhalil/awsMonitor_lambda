@@ -22,6 +22,17 @@ resource "aws_subnet" "infra-public-subnets" {
   tags = {
     Name = "infra-public subnet ${count.index + 1} "
   }
+#   resource "aws_subnet" "example" {
+#   for_each = toset(var.subnet_cidrs) # This will create a subnet for each CIDR in the list
+
+#   vpc_id            = aws_vpc.example.id
+#   cidr_block        = each.value
+#   availability_zone = "us-east-1a"  # Example AZ, you can use a dynamic selection if needed
+#   map_public_ip_on_launch = true
+#   tags = {
+#     Name = "Example Subnet ${each.value}"
+#   }
+# }
 }
 resource "aws_internet_gateway" "infra-igw" {
   vpc_id = aws_vpc.infra_vpc.id
@@ -29,10 +40,25 @@ resource "aws_internet_gateway" "infra-igw" {
     Name = "Infra internet gateway"
   }  
 }
-resource "aws_route_table" "infra-route" {
+resource "aws_route_table" "infra-route-table" {
   vpc_id = aws_vpc.infra_vpc.id
   route = {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.infra-igw.id
   }
+  tags = {
+      Name = "DEV-infra route table"
+      }
+}
+#**** The route resource is defined in the route {} block in teh route table resource
+# resource "aws_route" "infra-route" {
+#   route_table_id = aws_route_table.infra-route-table
+#   destination_cidr_block = "0.0.0.0/0"
+#   gateway_id = aws_internet_gateway.infra-igw.id
+# }
+
+resource "aws_route_table_association" "infra-public-subnet-association" {
+  for_each =  toset(aws_subnet.infra-public-subnets[*].id)
+  subnet_id = each.value
+  route_table_id = aws_route_table.infra-route-table.id
 }
