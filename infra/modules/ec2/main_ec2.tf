@@ -4,6 +4,8 @@ resource "aws_instance" "test-server" {
   subnet_id = var.subnet_ids[0]
   associate_public_ip_address = true
   key_name = var.ec2-key-name
+  monitoring = true
+  security_groups = var.ec2-sg-ids
 tags = {
   Name = "test-server"
 }

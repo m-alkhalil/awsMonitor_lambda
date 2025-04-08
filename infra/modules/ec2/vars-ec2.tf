@@ -10,8 +10,15 @@ variable "subnet-ids" {
 }
 variable "ec2-key-name" {
     description = " ssh access key name"
+    type = string
 }
 variable "ec2-type" {
   description = " ec2 instance type"
   default = "t2.micro"
+  type = string
+}
+
+variable "ec2-sg-ids" {
+  description = "security groups"
+  type = list(string)
 }

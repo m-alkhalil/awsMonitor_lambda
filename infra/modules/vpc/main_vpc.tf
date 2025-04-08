@@ -8,9 +8,57 @@
 
 resource "aws_vpc" "infra_vpc" {
     cidr_block = var.vpc-cidr
+    
     tags = {
         Name = "Infra_VPC"
     }
+}
+resource "aws_security_group" "infra-ssh-sg" {
+  vpc_id = aws_vpc.infra_vpc.id
+  name = "SSH-sg"
+  description = "SG SSH connection"
+  ingress = {
+    from_port = 22
+    to_port = 22
+    protocole = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress = {
+    from_port = 0
+    to_port = 0
+    protocole = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+
+  }
+  tags = {
+    Name = " SSH_SG"
+  }
+}
+resource "aws_security_group" "infra-http-s-sg" {
+  vpc_id = aws_vpc.infra_vpc.id
+  name = "Http-Https-SG"
+  description = "SG for https https rules"
+  ingress  {
+    from_port = 433
+    to_port = 433
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress  {
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress  {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    name = "http_https-sg"
+  }
 }
 #to create subnets in multiple az create a varialble to hold multiple az, then 
 #availability_zone = element(var.azs, count.index)
