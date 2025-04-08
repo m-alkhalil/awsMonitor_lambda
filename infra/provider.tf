@@ -11,8 +11,8 @@ terraform {
  
   backend "s3" {
     bucket = "awsMonitor-infra-s3-backend"
-    key = var.s3-bucket-locking-key
-    region = var.lockingS3-region
+    key = "state/terrafrom.tfstate"
+    region = "us-east-2"
     encrypt = true
     use_lockfile = true
   }
