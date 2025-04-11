@@ -1,3 +1,4 @@
+*.png
 #aws
 .aws
 *DS_Store*

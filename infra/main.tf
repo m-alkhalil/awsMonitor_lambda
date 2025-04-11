@@ -4,6 +4,14 @@
 #output.tf 
 #main.tf
 
+
+# vpc
+# ec2
+# sns 
+# lambda
+# CloudWatch
+
+
 module "vpc" {
     source = "./modules/vpc"
     vpc-cidr = "10.0.0.0/16"
