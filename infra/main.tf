@@ -15,6 +15,9 @@
 module "vpc" {
     source = "./modules/vpc"
     vpc-cidr = "10.0.0.0/16" 
+    providers = {
+      aws = aws.Ohio
+    }
 }
 module "ec2" {
   source = "./modules/ec2"
@@ -22,15 +25,24 @@ module "ec2" {
   ec2-key-name = "dip-key"
   subnet-ids = module.vpc.infra-public-subnet_ids
   ec2-sg-ids = [module.vpc.ssh-sg-id, module.vpc.http-sg-id]
+  providers = {
+      aws = aws.Ohio
+    }
 }
 module "sns" {
   source = "./modules/sns"
   sns_topic_name = "ec2_status"
   sns_reciever_email = "venture23acc@gmail.com"
+  providers = {
+      aws = aws.Ohio
+    }
 }
 module "lambda" {
   source = "./modules/lambda"
   py_runtime = "Python 3.12"
+  providers = {
+      aws = aws.Ohio
+    }
 }
 module "event_bridge" {
   source = "./modules/event_bridge"
@@ -38,4 +50,7 @@ module "event_bridge" {
   lambda_func_name = module.lambda.out_lambda_func_name
   lambda_function_arn = module.lambda.out_lambda_func_arn
   sns_topic_arn = module.sns.arn_sns_topic
+  providers = {
+      aws = aws.Ohio
+    }
 }
