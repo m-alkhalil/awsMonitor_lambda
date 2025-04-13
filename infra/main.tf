@@ -14,17 +14,14 @@
 
 module "vpc" {
     source = "./modules/vpc"
-    vpc-cidr = "10.0.0.0/16"
-  
+    vpc-cidr = "10.0.0.0/16" 
 }
-
 module "ec2" {
   source = "./modules/ec2"
   ec2-ami = "ami-00a929b66ed6e0de6"
   ec2-key-name = "dip-key"
   subnet-ids = module.vpc.infra-public-subnet_ids
   ec2-sg-ids = [module.vpc.ssh-sg-id, module.vpc.http-sg-id]
-
 }
 module "sns" {
   source = "./modules/sns"
@@ -41,5 +38,4 @@ module "event_bridge" {
   lambda_func_name = module.lambda.out_lambda_func_name
   lambda_function_arn = module.lambda.out_lambda_func_arn
   sns_topic_arn = module.sns.arn_sns_topic
-
 }
