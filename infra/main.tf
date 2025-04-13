@@ -35,8 +35,8 @@ module "lambda" {
   source = "./modules/lambda"
   py_runtime = "Python 3.12"
 }
-module "cloud_watch_events" {
-  source = "./modules/cloud_watch_events"
+module "event_bridge" {
+  source = "./modules/event_bridge"
   ec2_event_rule_name = "ec2_event_rule"
   lambda_func_name = module.lambda.out_lambda_func_name
   lambda_function_arn = module.lambda.out_lambda_func_arn
