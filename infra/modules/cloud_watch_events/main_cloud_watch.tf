@@ -12,7 +12,7 @@
 
 
 resource "aws_cloudwatch_event_rule" "cw_ec2-stopped_rule" {
-  name = var.event_rule_name
+  name = var.ec2_event_rule_name
   description = "this rule triggers lambda function when an ec2 instance is stopped"
     
     #even filter/pattern
@@ -60,8 +60,7 @@ resource "aws_cloudwatch_event_rule" "cw_sns_event_rule" {
   })
 }
 resource "aws_cloudwatch_event_target" "cw_target_sns" {
-  
   rule = aws_cloudwatch_event_rule.cw_sns_event_rule.name
   target_id = "SendToSNS"
-  arn = ""
+  arn = var.sns_topic_arn
 }

@@ -61,7 +61,7 @@ resource "aws_lambda_function" "ec2-status-func" {
   function_name = "ec2-status-func"
   role = aws_iam_role.role-lambda-func.arn
   handler = "lambda_function.lambda_handler"
-  runtime = "Python 3.12"
+  runtime = var.py_runtime
   filename = data.archive_file.py-func-zip.output_path
   source_code_hash = data.archive_file.py-func-zip.output_base64sha256
   timeout = 10

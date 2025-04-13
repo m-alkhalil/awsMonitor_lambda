@@ -26,3 +26,20 @@ module "ec2" {
   ec2-sg-ids = [module.vpc.ssh-sg-id, module.vpc.http-sg-id]
 
 }
+module "sns" {
+  source = "./modules/sns"
+  sns_topic_name = "ec2_status"
+  sns_reciever_email = "venture23acc@gmail.com"
+}
+module "lambda" {
+  source = "./modules/lambda"
+  py_runtime = "Python 3.12"
+}
+module "cloud_watch_events" {
+  source = "./modules/cloud_watch_events"
+  ec2_event_rule_name = "ec2_event_rule"
+  lambda_func_name = module.lambda.out_lambda_func_name
+  lambda_function_arn = module.lambda.out_lambda_func_arn
+  sns_topic_arn = module.sns.arn_sns_topic
+
+}
