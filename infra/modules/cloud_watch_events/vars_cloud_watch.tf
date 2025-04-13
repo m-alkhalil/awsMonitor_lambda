@@ -12,3 +12,4 @@ variable "lambda_function_arn" {
   description = "lambda function arn"
   type = string
 }
+

@@ -48,3 +48,20 @@ resource "aws_lambda_permission" "lambda_evbr_permt" {
     #We restrict this permission to only the event rule defined above
 
 }
+
+
+# ****** SETUP SNS ******
+
+resource "aws_cloudwatch_event_rule" "cw_sns_event_rule" {
+  name = "SNS-Event-Rule"
+  description= "Event rule for SNS notification"
+  event_pattern = jsondecode({
+    detail-type = ["EC2 Instance stopped, will be started by lambda"]
+  })
+}
+resource "aws_cloudwatch_event_target" "cw_target_sns" {
+  
+  rule = aws_cloudwatch_event_rule.cw_sns_event_rule.name
+  target_id = "SendToSNS"
+  arn = ""
+}
