@@ -20,7 +20,7 @@ resource "aws_cloudwatch_event_rule" "cw_ec2-stopped_rule" {
     source = ["aws.ec2"], 
     "detail-type" = ["EC2 Instance State-change Notification"]
     detail={
-        state = "Stopped"
+        "state" = ["Stopped"]
     }
   })
 }
@@ -56,7 +56,11 @@ resource "aws_cloudwatch_event_rule" "cw_sns_event_rule" {
   name = "SNS-Event-Rule"
   description= "Event rule for SNS notification"
   event_pattern = jsondecode({
-    detail-type = ["EC2 Instance stopped, will be started by lambda"]
+    detail-type =  ["EC2 Instance State-Change Notification"],
+    detail = {
+      state = ["stopped"]
+    }
+    #["EC2 Instance stopped, will be started by lambda"]
   })
 }
 resource "aws_cloudwatch_event_target" "cw_target_sns" {
