@@ -40,6 +40,7 @@ module "sns" {
 module "lambda" {
   source = "./modules/lambda"
   py_runtime = "Python3.12"
+  SNS_TOPIC_ARN = module.sns.arn_sns_topic
   providers = {
       aws = aws.Ohio
     }

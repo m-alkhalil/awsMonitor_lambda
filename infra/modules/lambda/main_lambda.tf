@@ -66,6 +66,12 @@ resource "aws_lambda_function" "ec2-status-func" {
   filename = data.archive_file.py-func-zip.output_path
   source_code_hash = data.archive_file.py-func-zip.output_base64sha256
   timeout = 10
+
+  environment {
+    variables = {
+      SNS_TOPIC_ARN = var.SNS_TOPIC_ARN
+    }
+  }
 }
 
 
