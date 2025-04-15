@@ -27,7 +27,6 @@ This project provisions an AWS-based infrastructure using Terraform. It includes
 ## Project Structure
 ```
 .
-├── Apr 11, 2025, 09_40_05 AM.png
 ├── LICENSE
 ├── README.md
 ├── infra
@@ -64,9 +63,7 @@ This project provisions an AWS-based infrastructure using Terraform. It includes
 │   │       ├── s3-tfvars.tfvars
 │   │       ├── s3-variables.tf
 │   │       └── s3.tf
-│   ├── provider.tf
-│   ├── terraform.tfstate
-│   └── terraform.tfstate.backup
+│   ├── provider.tf 
 ├── requirements.txt
 ├── src
 │   └── main_lambda.py
@@ -75,8 +72,8 @@ This project provisions an AWS-based infrastructure using Terraform. It includes
     
 ```
 ## Running the code
-    #### Init s3 backend:
-    
+#### Init s3 backend:
+
 ```
 py 
 ```
