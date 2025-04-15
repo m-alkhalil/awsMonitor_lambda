@@ -18,14 +18,65 @@ This project provisions an AWS-based infrastructure using Terraform. It includes
     Fully IaC-driven setup using Terraform
     Environment variable integration
 ## Tech Stack
-    Terraform (remote state with S3 + DynamoDB locking)
+    Terraform (remote state with S3 + S3 locking)
     AWS Lambda (Python 3.x)
     AWS EC2
     CloudWatch Events (EventBridge)
     SNS
     IAM
-## Project Structure/ tree
+## Project Structure
+```
+.
+├── Apr 11, 2025, 09_40_05 AM.png
+├── LICENSE
+├── README.md
+├── infra
+│   ├── main.tf
+│   ├── modules
+│   │   ├── ec2
+│   │   │   ├── main_ec2.tf
+│   │   │   └── vars-ec2.tf
+│   │   ├── event_bridge
+│   │   │   ├── main_event_bridge.tf
+│   │   │   ├── output_event_bridge.tf
+│   │   │   └── vars_event_bridge.tf
+│   │   ├── lambda
+│   │   │   ├── main_lambda.tf
+│   │   │   ├── output_lambda.tf
+│   │   │   ├── src
+│   │   │   └── vars_lambda.tf
+│   │   ├── sns
+│   │   │   ├── main_sns.tf
+│   │   │   ├── out_sns.tf
+│   │   │   └── vars_sns.tf
+│   │   └── vpc
+│   │       ├── main_vpc.tf
+│   │       ├── output_vpc.tf
+│   │       └── vars_vpc.tf
+│   ├── provider.tf
+│   ├── terraform.tfvars
+│   └── vars-main.tf
+├── infra-backend
+│   ├── main.tf
+│   ├── modules
+│   │   └── s3
+│   │       ├── s3-output.tf
+│   │       ├── s3-tfvars.tfvars
+│   │       ├── s3-variables.tf
+│   │       └── s3.tf
+│   ├── provider.tf
+│   ├── terraform.tfstate
+│   └── terraform.tfstate.backup
+├── requirements.txt
+├── src
+│   └── main_lambda.py
+├── tests
+└── venv
+    
+```
 ## Running the code
+    #### Init s3 backend:
+    
 ```
 py 
 ```
