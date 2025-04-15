@@ -2,12 +2,12 @@
 ###     Serverless Monitoring with AWS Lambda: Event-driven Archeticture 
 
 ## Table of Contents
-*
-*
-*
-*
-*
-*
+* Overview
+* Features
+* Tech Stack
+* Project Structure/ tree
+* Running the code
+* Contact / Feedback
 
 ## Overview
 This project provisions an AWS-based infrastructure using Terraform. It includes an EC2 instance that is automatically restarted via an AWS Lambda function triggered by a CloudWatch Event. The Lambda function also notifies a user via SNS email notification. The project demonstrates infrastructure automation, serverless programming, and event-driven architecture.
@@ -26,9 +26,9 @@ This project provisions an AWS-based infrastructure using Terraform. It includes
     IAM
 ## Project Structure/ tree
 ## Running the code
-'''
+```
 py 
-'''
+```
 ## Test 
 
 # Contact / Feedback
