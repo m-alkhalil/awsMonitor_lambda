@@ -17,16 +17,16 @@ resource "aws_security_group" "infra-ssh-sg" {
   vpc_id = aws_vpc.infra_vpc.id
   name = "SSH-sg"
   description = "SG SSH connection"
-  ingress = {
+  ingress {
     from_port = 22
     to_port = 22
-    protocole = "tcp"
+    protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  egress = {
+  egress  {
     from_port = 0
     to_port = 0
-    protocole = "-1"
+    protocol = "-1"
     cidr_blocks = ["0.0.0.0/0"]
 
   }
@@ -90,7 +90,7 @@ resource "aws_internet_gateway" "infra-igw" {
 }
 resource "aws_route_table" "infra-route-table" {
   vpc_id = aws_vpc.infra_vpc.id
-  route = {
+  route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.infra-igw.id
   }
@@ -106,7 +106,8 @@ resource "aws_route_table" "infra-route-table" {
 # }
 
 resource "aws_route_table_association" "infra-public-subnet-association" {
-  for_each =  toset(aws_subnet.infra-public-subnets[*].id)
+  #for_each =  toset(aws_subnet.infra-public-subnets[*].id)
+  for_each = { for idx, subnet_id in aws_subnet.infra-public-subnets : idx => subnet_id.id }
   subnet_id = each.value
   route_table_id = aws_route_table.infra-route-table.id
 }

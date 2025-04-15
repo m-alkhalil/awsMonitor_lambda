@@ -7,7 +7,7 @@
 
 # 1. Trust policy for Lambda to assume the role
 data "aws_iam_policy_document" "lambda-assume-role-doc"{
-  version ="2025-04-10"
+  version ="2012-10-17"
   statement {
     effect = "Allow"
     actions = ["sts:AssumeRole"]
@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "iam-lambda-policy"{
 # 4. Create a named IAM policy from the document
 resource "aws_iam_policy" "policy-lambda-func" {
   name = "lambda-policy"
-  policy =data.aws_iam_policy.iam-lambda-policy.json
+  policy =data.aws_iam_policy_document.iam-lambda-policy.json
 }
 
 # 5. Attach the IAM policy to the Lambda's role
@@ -52,7 +52,7 @@ resource "aws_iam_role_policy_attachment" "attach-role-policy" {
 
 data "archive_file" "py-func-zip"{
   type = "zip"
-  source_file = "${path.module}/src/main_lambda.py"
+  source_file = "../src/main_lambda.py"
   output_path = "${path.module}/src/function.zip"
 
 }
@@ -61,7 +61,8 @@ resource "aws_lambda_function" "ec2-status-func" {
   function_name = "ec2-status-func"
   role = aws_iam_role.role-lambda-func.arn
   handler = "lambda_function.lambda_handler"
-  runtime = var.py_runtime
+  #runtime = var.py_runtime
+  runtime = "python3.9"
   filename = data.archive_file.py-func-zip.output_path
   source_code_hash = data.archive_file.py-func-zip.output_base64sha256
   timeout = 10
