@@ -6,8 +6,9 @@
 * [Features](#Features)
 * [Tech Stack](#Tech-Stack])
 * [Project Structure tree](#Project-Structure-tree)
-* [Running the code](#running-the-code)
-* [Contact Feedback](#contact-feedback)
+* [Running the code](#Running-the-code)
+* [Test](#testß)
+* [Contact / Feedback](#contact--feedback)
 
 ## Overview
 This project provisions an AWS-based infrastructure using Terraform. It includes an EC2 instance that is automatically restarted via an AWS Lambda function triggered by a CloudWatch Event. The Lambda function also notifies a user via SNS email notification. The project demonstrates infrastructure automation, serverless programming, and event-driven architecture.
