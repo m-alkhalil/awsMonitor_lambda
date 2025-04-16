@@ -42,7 +42,6 @@ This project provisions an AWS-based infrastructure using Terraform. It includes
 │   │   ├── lambda
 │   │   │   ├── main_lambda.tf
 │   │   │   ├── output_lambda.tf
-│   │   │   ├── src
 │   │   │   └── vars_lambda.tf
 │   │   ├── sns
 │   │   │   ├── main_sns.tf
@@ -72,13 +71,20 @@ This project provisions an AWS-based infrastructure using Terraform. It includes
     
 ```
 ## Running the code
-#### Init s3 backend:
+### Cone the repository
+```
+git clone https://github.com/m-alkhalil/awsMonitor_lambda.git
+```
+#### Provestion s3 backend:
 
 ```
-py 
+cd infra-backend/
+terraform init
+terraform plan
+terraform appy
 ```
 ## Test 
 
-# Contact / Feedback
+## Contact / Feedback
 Feel free to open issues or reach out via LinkedIn [Mahran Alkhalil](linkedin) if you have feedback!
 
