@@ -81,10 +81,10 @@ run:
 aws configure
 ```
 provide: 
-[AWS Access Key ID]
-[AWS Secret Access Key]
-[Default region name]
-[Default output format]
+* AWS Access Key ID:
+* AWS Secret Access Key:
+* Default region name:
+* Default output format:
 
 #### Provestion s3 backend:
 
