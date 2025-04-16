@@ -71,10 +71,21 @@ This project provisions an AWS-based infrastructure using Terraform. It includes
     
 ```
 ## Running the code
-### Cone the repository
+### Clone the repository
 ```
 git clone https://github.com/m-alkhalil/awsMonitor_lambda.git
 ```
+### Configure AWS so terraform can use the configured profile:
+run:
+```
+aws configure
+```
+provide: 
+[AWS Access Key ID]
+[AWS Secret Access Key]
+[Default region name]
+[Default output format]
+
 #### Provestion s3 backend:
 
 ```
@@ -83,8 +94,16 @@ terraform init
 terraform plan
 terraform appy
 ```
+#### Provestion Infrastructure :
+
+```
+cd ../infra
+terraform init
+terraform plan
+terraform appy
+```
 ## Test 
 
 ## Contact / Feedback
-Feel free to open issues or reach out via LinkedIn [Mahran Alkhalil](linkedin) if you have feedback!
+Feel free to open issues or reach out via LinkedIn [Mahran Alkhalil](https://www.linkedin.com/in/malkhalil91) if you have feedback!
 
