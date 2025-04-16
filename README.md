@@ -81,10 +81,10 @@ run:
 aws configure
 ```
 provide: 
-* AWS Access Key ID:
-* AWS Secret Access Key:
-* Default region name:
-* Default output format:
+* AWS Access Key ID
+* AWS Secret Access Key
+* Default region name
+* Default output formatß
 
 #### Provestion s3 backend:
 
@@ -105,5 +105,8 @@ terraform appy
 ## Test 
 
 ## Contact / Feedback
-Feel free to open issues or reach out via LinkedIn [Mahran Alkhalil](https://www.linkedin.com/in/malkhalil91) if you have feedback!
+
+Feel free to open issues or reach out via LinkedIn:
+
+[Mahran Alkhalil](https://www.linkedin.com/in/malkhalil91)
 
