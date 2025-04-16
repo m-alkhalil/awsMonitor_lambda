@@ -53,7 +53,7 @@ resource "aws_iam_role_policy_attachment" "attach-role-policy" {
 data "archive_file" "py-func-zip"{
   type = "zip"
   source_file = "../src/main_lambda.py"
-  output_path = "${path.module}/src/function.zip"
+  output_path = "../src/function.zip"
 
 }
 
