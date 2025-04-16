@@ -7,7 +7,7 @@
 * [Tech Stack](#Tech-Stack])
 * [Project Structure tree](#Project-Structure-tree)
 * [Running the code](#Running-the-code)
-* [Test](#testß)
+* [Test](#Test)
 * [Contact / Feedback](#contact--feedback)
 
 ## Overview
