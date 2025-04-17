@@ -76,6 +76,12 @@ This project provisions an AWS-based infrastructure using Terraform. It includes
 ```
 git clone https://github.com/m-alkhalil/awsMonitor_lambda.git
 ```
+### create py venv and install python packages
+```
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 ### Configure AWS so terraform can use the configured profile:
 run:
 ```
