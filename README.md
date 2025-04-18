@@ -1,5 +1,5 @@
-# AWS EC2 Auto-Recovery System with Terraform & Lambda
-###     Serverless Monitoring with AWS Lambda: Event-driven Archeticture 
+# AWS EC2 Auto-Recovery with Terraform & Lambda
+###         Serverless Monitoring with AWS Lambda: Event-driven Architecture  
 
 ## Table of Contents
 * [Overview](#Overview)
@@ -91,25 +91,54 @@ provide:
 * AWS Access Key ID
 * AWS Secret Access Key
 * Default region name
-* Default output formatß
+* Default output format
 
-#### Provestion s3 backend:
-
+#### Provision s3 backend:
 ```
 cd infra-backend/
 terraform init
 terraform plan
-terraform appy
+terraform apply
 ```
-#### Provestion Infrastructure :
 
+#### Provision Infrastructure :
+add the receiver email in main.tf:
+     sns_receiver_email = "name@example.com"
 ```
 cd ../infra
 terraform init
 terraform plan
-terraform appy
+terraform apply
 ```
+
 ## Test 
+Test was written as follows: 
+* Write a test function using pytest
+* Mock AWS services using unittest.mock
+* Simulate inputs (the EventBridge payload)
+* Call lambda_handler
+* Assert behavior (return values, AWS calls)
+
+### testing locally: 
+add the following line after the lambda_handler function definition in main_lambda.py:
+```
+if __name__ == "__main__":
+     test_event = {
+         "detail": {
+             "instance-id": "i-00544787ec36918d5",
+             "state": "stopped"
+         }
+     }
+     lambda_handler (test_event, None)
+```
+### unit test and pytest
+* Arrange: prepare mocks and inputs, simply find out and prepare everything my function(lambda_handler) needs to work. 
+* Act: make the function call.
+* Assert: check if EC2 start instance was called and SNS message was sent.
+### running tests
+```
+pytest
+```
 
 ## Contact / Feedback
 

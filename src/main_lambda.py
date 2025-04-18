@@ -9,8 +9,8 @@ def lambda_handler(event, context):
     
     handler_logger = logging.getLogger()
     handler_logger.setLevel(logging.DEBUG)
-    print("🔍 Event received by Lambda:")
-    print(json.dumps(event, indent=2))
+    # print("🔍 Event received by Lambda:")
+    # print(json.dumps(event, indent=2))
 
     sns = boto3.client("sns")
     ec2 = boto3.client("ec2")
@@ -44,7 +44,7 @@ def lambda_handler(event, context):
         handler_logger.error(f"Starting Instance Error: {str(e)}")
         email_msg =( f"EC2 Instance ID: {instance_id}\n"
                      f"Action: Restart triggered by Lambda\n"
-                     f"Status: FAILD"
+                     f"Status: FAILED"
         )
         sns_response = sns.publish(
             TopicArn = SNS_TOPIC_ARN,

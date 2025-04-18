@@ -3,7 +3,7 @@ variable "sns_topic_name" {
   type = string
 }
 
-variable "sns_reciever_email" {
-  description = "sns notification reciever email address"
+variable "sns_receiver_email" {
+  description = "sns notification receiver email address"
   type = string
 }
