@@ -27,48 +27,7 @@ This project provisions an AWS-based infrastructure using Terraform. It includes
     IAM
 ## Project Structure
 ```
-.
-├── LICENSE
-├── README.md
-├── infra
-│   ├── main.tf
-│   ├── modules
-│   │   ├── ec2
-│   │   │   ├── main_ec2.tf
-│   │   │   └── vars-ec2.tf
-│   │   ├── event_bridge
-│   │   │   ├── main_event_bridge.tf
-│   │   │   ├── output_event_bridge.tf
-│   │   │   └── vars_event_bridge.tf
-│   │   ├── lambda
-│   │   │   ├── main_lambda.tf
-│   │   │   ├── output_lambda.tf
-│   │   │   └── vars_lambda.tf
-│   │   ├── sns
-│   │   │   ├── main_sns.tf
-│   │   │   ├── out_sns.tf
-│   │   │   └── vars_sns.tf
-│   │   └── vpc
-│   │       ├── main_vpc.tf
-│   │       ├── output_vpc.tf
-│   │       └── vars_vpc.tf
-│   ├── provider.tf
-│   ├── terraform.tfvars
-│   └── vars-main.tf
-├── infra-backend
-│   ├── main.tf
-│   ├── modules
-│   │   └── s3
-│   │       ├── s3-output.tf
-│   │       ├── s3-tfvars.tfvars
-│   │       ├── s3-variables.tf
-│   │       └── s3.tf
-│   ├── provider.tf 
-├── requirements.txt
-├── src
-│   └── main_lambda.py
-├── tests
-└── venv
+
     
 ```
 ## Running the code
@@ -112,7 +71,16 @@ terraform apply
 ```
 
 ## Test 
-Test was written as follows: 
+Success case (when everything works as expected).
+
+Failure cases:
+* Missing environment variables.
+* Missing instance ID in the event.
+* EC2 start failures.
+* SNS publish failures.
+* Edge cases (empty or malformed events).
+ 
+Test was written according to the following flow: 
 * Write a test function using pytest
 * Mock AWS services using unittest.mock
 * Simulate inputs (the EventBridge payload)
