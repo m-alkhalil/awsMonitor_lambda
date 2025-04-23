@@ -68,4 +68,4 @@ def test_ec2_fail_sns_success():
 
 def test_sc2_autostart_failure(test_event, mock_sns):
     with patch("boto3.client") as mock_boto3_client:
-        
+        ...
