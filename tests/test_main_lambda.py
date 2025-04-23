@@ -68,4 +68,30 @@ def test_ec2_fail_sns_success():
 
 def test_sc2_autostart_failure(test_event, mock_sns):
     with patch("boto3.client") as mock_boto3_client:
-        
+        mock_ec2 = MagicMock()
+
+        mock_boto3_client.side_effect = lambda service: mock_ec2 if service == "ec2" else mock_sns
+
+        mock_ec2.start_instances.side_effect = Exception("EC2 instance autostart failed..")
+
+        response = lambda_handler(test_event, None)
+        assert response["statusCode"] == 500
+        assert "autostart has failed " in json.loads(response["body"])
+        mock_sns.publish.assert_called_once()
+
+
+def test_bad_event():
+
+    with patch ("boto3.client") as mock_boto3_client:
+        mock_ec2 = MagicMock()
+        mock_sns = MagicMock()
+        mock_boto3_client.side_effect = lambda service : mock_ec2 if service =="ec2" else mock_sns
+
+        bad_event = {
+            "detail" : {
+
+            }
+        }
+
+        with pytest.raises(Exception, match="Instance ID not found in the event payload"):
+            lambda_handler(bad_event, None)
