@@ -44,6 +44,28 @@ def test_lambda_success(test_event, mock_ec2,mock_sns):
         mock_sns.publish.assert_called_once()
         
 def test_sns_publish_failure(test_event, mock_ec2):
-    with patch("boto3.client") as mock_boto_client:
+    
+    with patch("boto3.client") as mock_boto3_client:
         #redefine to override the original behavior 
-        mock_ec2
+        mock_ec2= MagicMock()
+        mock_sns = MagicMock()
+        mock_boto3_client.side_effect = lambda service: mock_ec2 if service == "ec2" else mock_sns
+
+        mock_sns.publish.side_effect = Exception("SNS Publish failed")
+        response = lambda_handler(test_event, None)
+
+        assert response["statusCode"] == 207
+        assert "notification failed" in json.loads(response["body"]).lower()
+        mock_ec2.start_instances.assert_called_once()
+
+def test_ec2_fail_sns_success():
+    with patch("boto3.client")as mock_boto3_client:
+        mock_ec2 = MagicMock()
+        mock_sns = MagicMock()
+
+        mock_ec2.start_instances.side_effect = Exception("autostart has failed")
+        mock_sns.publish.side_effect = Exception("notification failed")
+
+def test_sc2_autostart_failure(test_event, mock_sns):
+    with patch("boto3.client") as mock_boto3_client:
+        
