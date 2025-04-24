@@ -66,7 +66,7 @@ def test_ec2_fail_sns_success():
         mock_ec2.start_instances.side_effect = Exception("autostart has failed")
         mock_sns.publish.side_effect = Exception("notification failed")
 
-def test_sc2_autostart_failure(test_event, mock_sns):
+def test_ec2_autostart_failure(test_event, mock_sns):
     with patch("boto3.client") as mock_boto3_client:
         mock_ec2 = MagicMock()
 
