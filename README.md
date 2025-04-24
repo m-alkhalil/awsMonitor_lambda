@@ -1,5 +1,5 @@
-# AWS EC2 Auto-Recovery System with Terraform & Lambda
-###     Serverless Monitoring with AWS Lambda: Event-driven Archeticture 
+# AWS EC2 Auto-Recovery with Terraform & Lambda
+###         Serverless Monitoring with AWS Lambda: Event-driven Architecture  
 
 ## Table of Contents
 * [Overview](#Overview)
@@ -27,48 +27,7 @@ This project provisions an AWS-based infrastructure using Terraform. It includes
     IAM
 ## Project Structure
 ```
-.
-├── LICENSE
-├── README.md
-├── infra
-│   ├── main.tf
-│   ├── modules
-│   │   ├── ec2
-│   │   │   ├── main_ec2.tf
-│   │   │   └── vars-ec2.tf
-│   │   ├── event_bridge
-│   │   │   ├── main_event_bridge.tf
-│   │   │   ├── output_event_bridge.tf
-│   │   │   └── vars_event_bridge.tf
-│   │   ├── lambda
-│   │   │   ├── main_lambda.tf
-│   │   │   ├── output_lambda.tf
-│   │   │   └── vars_lambda.tf
-│   │   ├── sns
-│   │   │   ├── main_sns.tf
-│   │   │   ├── out_sns.tf
-│   │   │   └── vars_sns.tf
-│   │   └── vpc
-│   │       ├── main_vpc.tf
-│   │       ├── output_vpc.tf
-│   │       └── vars_vpc.tf
-│   ├── provider.tf
-│   ├── terraform.tfvars
-│   └── vars-main.tf
-├── infra-backend
-│   ├── main.tf
-│   ├── modules
-│   │   └── s3
-│   │       ├── s3-output.tf
-│   │       ├── s3-tfvars.tfvars
-│   │       ├── s3-variables.tf
-│   │       └── s3.tf
-│   ├── provider.tf 
-├── requirements.txt
-├── src
-│   └── main_lambda.py
-├── tests
-└── venv
+
     
 ```
 ## Running the code
@@ -91,25 +50,63 @@ provide:
 * AWS Access Key ID
 * AWS Secret Access Key
 * Default region name
-* Default output formatß
+* Default output format
 
-#### Provestion s3 backend:
-
+#### Provision s3 backend:
 ```
 cd infra-backend/
 terraform init
 terraform plan
-terraform appy
+terraform apply
 ```
-#### Provestion Infrastructure :
 
+#### Provision Infrastructure :
+add the receiver email in main.tf:
+     sns_receiver_email = "name@example.com"
 ```
 cd ../infra
 terraform init
 terraform plan
-terraform appy
+terraform apply
 ```
+
 ## Test 
+Success case (when everything works as expected).
+
+Failure cases:
+* Missing environment variables.
+* Missing instance ID in the event.
+* EC2 start failures.
+* SNS publish failures.
+* Edge cases (empty or malformed events).
+ 
+Test was written according to the following flow: 
+* Write a test function using pytest
+* Mock AWS services using unittest.mock
+* Simulate inputs (the EventBridge payload)
+* Call lambda_handler
+* Assert behavior (return values, AWS calls)
+
+### testing locally: 
+add the following line after the lambda_handler function definition in main_lambda.py:
+```
+if __name__ == "__main__":
+     test_event = {
+         "detail": {
+             "instance-id": "i-00544787ec36918d5",
+             "state": "stopped"
+         }
+     }
+     lambda_handler (test_event, None)
+```
+### unit test and pytest
+* Arrange: prepare mocks and inputs, simply find out and prepare everything my function(lambda_handler) needs to work. 
+* Act: make the function call.
+* Assert: check if EC2 start instance was called and SNS message was sent.
+### running tests
+```
+pytest
+```
 
 ## Contact / Feedback
 

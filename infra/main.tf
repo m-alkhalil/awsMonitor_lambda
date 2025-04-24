@@ -18,7 +18,7 @@ module "ec2" {
 module "sns" {
   source = "./modules/sns"
   sns_topic_name = "ec2_status"
-  sns_reciever_email = "venture23acc@gmail.com"
+  sns_receiver_email = "name@example.com"
   providers = {
       aws = aws.Ohio
     }

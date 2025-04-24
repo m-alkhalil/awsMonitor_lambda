@@ -5,7 +5,7 @@ resource "aws_sns_topic" "sns_topic" {
 resource "aws_sns_topic_subscription" "sns_email_subsc" {
   topic_arn = aws_sns_topic.sns_topic.arn
   protocol = "email"
-  endpoint = var.sns_reciever_email
+  endpoint = var.sns_receiver_email
 }
 
 # now update cloud watch rule:
